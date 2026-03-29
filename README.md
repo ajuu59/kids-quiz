@@ -4,6 +4,7 @@ A simple HTML5 quiz game for kids to learn:
 - countries
 - capitals
 - currencies
+- continents
 
 The app is beginner-friendly, mobile-friendly, and runs directly in the browser.
 
@@ -12,6 +13,8 @@ The app is beginner-friendly, mobile-friendly, and runs directly in the browser.
   - Country -> Capital
   - Country -> Currency
   - Capital -> Country
+  - Currency -> Country
+  - Country -> Continent
   - Mixed mode
 - Score tracking
 - Next question flow
@@ -48,6 +51,7 @@ Each item includes:
 - `country`
 - `capital`
 - `currency`
+- `continent`
 
 ## Language Support
 All visible UI text supports both English and German through centralized translation strings.

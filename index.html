@@ -355,32 +355,32 @@
     const QUIZ_SIZE = 10;
 
     const DATA = [
-      { country: "Germany", capital: "Berlin", currency: "Euro" },
-      { country: "France", capital: "Paris", currency: "Euro" },
-      { country: "Spain", capital: "Madrid", currency: "Euro" },
-      { country: "Italy", capital: "Rome", currency: "Euro" },
-      { country: "Portugal", capital: "Lisbon", currency: "Euro" },
-      { country: "Japan", capital: "Tokyo", currency: "Yen" },
-      { country: "China", capital: "Beijing", currency: "Yuan" },
-      { country: "India", capital: "New Delhi", currency: "Rupee" },
-      { country: "Canada", capital: "Ottawa", currency: "Canadian Dollar" },
-      { country: "United States", capital: "Washington, D.C.", currency: "US Dollar" },
-      { country: "Brazil", capital: "Brasilia", currency: "Real" },
-      { country: "Mexico", capital: "Mexico City", currency: "Mexican Peso" },
-      { country: "United Kingdom", capital: "London", currency: "Pound Sterling" },
-      { country: "Sweden", capital: "Stockholm", currency: "Swedish Krona" },
-      { country: "Norway", capital: "Oslo", currency: "Norwegian Krone" },
-      { country: "Poland", capital: "Warsaw", currency: "Zloty" },
-      { country: "Switzerland", capital: "Bern", currency: "Swiss Franc" },
-      { country: "Australia", capital: "Canberra", currency: "Australian Dollar" },
-      { country: "South Korea", capital: "Seoul", currency: "Won" },
-      { country: "South Africa", capital: "Pretoria", currency: "Rand" }
+      { country: "Germany", capital: "Berlin", currency: "Euro", continent: "Europe" },
+      { country: "France", capital: "Paris", currency: "Euro", continent: "Europe" },
+      { country: "Spain", capital: "Madrid", currency: "Euro", continent: "Europe" },
+      { country: "Italy", capital: "Rome", currency: "Euro", continent: "Europe" },
+      { country: "Portugal", capital: "Lisbon", currency: "Euro", continent: "Europe" },
+      { country: "Japan", capital: "Tokyo", currency: "Yen", continent: "Asia" },
+      { country: "China", capital: "Beijing", currency: "Yuan", continent: "Asia" },
+      { country: "India", capital: "New Delhi", currency: "Rupee", continent: "Asia" },
+      { country: "Canada", capital: "Ottawa", currency: "Canadian Dollar", continent: "North America" },
+      { country: "United States", capital: "Washington, D.C.", currency: "US Dollar", continent: "North America" },
+      { country: "Brazil", capital: "Brasilia", currency: "Real", continent: "South America" },
+      { country: "Mexico", capital: "Mexico City", currency: "Mexican Peso", continent: "North America" },
+      { country: "United Kingdom", capital: "London", currency: "Pound Sterling", continent: "Europe" },
+      { country: "Sweden", capital: "Stockholm", currency: "Swedish Krona", continent: "Europe" },
+      { country: "Norway", capital: "Oslo", currency: "Norwegian Krone", continent: "Europe" },
+      { country: "Poland", capital: "Warsaw", currency: "Zloty", continent: "Europe" },
+      { country: "Switzerland", capital: "Bern", currency: "Swiss Franc", continent: "Europe" },
+      { country: "Australia", capital: "Canberra", currency: "Australian Dollar", continent: "Oceania" },
+      { country: "South Korea", capital: "Seoul", currency: "Won", continent: "Asia" },
+      { country: "South Africa", capital: "Pretoria", currency: "Rand", continent: "Africa" }
     ];
 
     const I18N = {
       en: {
         title: "World Quiz for Kids",
-        subtitle: "Learn countries, capitals, and currencies",
+        subtitle: "Learn countries, capitals, currencies, and continents",
         chooseMode: "Choose a quiz mode",
         start: "Start Quiz",
         next: "Next Question",
@@ -391,9 +391,13 @@
         promptCountryToCapital: "What is the capital of this country?",
         promptCountryToCurrency: "What is the currency of this country?",
         promptCapitalToCountry: "Which country has this capital?",
+        promptCurrencyToCountry: "Which country uses this currency?",
+        promptCountryToContinent: "Which continent is this country in?",
         modeCountryCapital: "Country -> Capital",
         modeCountryCurrency: "Country -> Currency",
         modeCapitalCountry: "Capital -> Country",
+        modeCurrencyCountry: "Currency -> Country",
+        modeCountryContinent: "Country -> Continent",
         modeMixed: "Mixed",
         pickAnswer: "Pick one answer",
         good: "Correct! Great job!",
@@ -405,7 +409,7 @@
       },
       de: {
         title: "Welt Quiz fuer Kinder",
-        subtitle: "Lerne Laender, Hauptstaedte und Waehrungen",
+        subtitle: "Lerne Laender, Hauptstaedte, Waehrungen und Kontinente",
         chooseMode: "Waehle einen Quiz Modus",
         start: "Quiz Starten",
         next: "Naechste Frage",
@@ -416,9 +420,13 @@
         promptCountryToCapital: "Was ist die Hauptstadt von diesem Land?",
         promptCountryToCurrency: "Welche Waehrung hat dieses Land?",
         promptCapitalToCountry: "Welches Land hat diese Hauptstadt?",
+        promptCurrencyToCountry: "Welches Land nutzt diese Waehrung?",
+        promptCountryToContinent: "Auf welchem Kontinent liegt dieses Land?",
         modeCountryCapital: "Land -> Hauptstadt",
         modeCountryCurrency: "Land -> Waehrung",
         modeCapitalCountry: "Hauptstadt -> Land",
+        modeCurrencyCountry: "Waehrung -> Land",
+        modeCountryContinent: "Land -> Kontinent",
         modeMixed: "Gemischt",
         pickAnswer: "Waehle eine Antwort",
         good: "Richtig! Super!",
@@ -434,6 +442,8 @@
       { id: "country-capital", key: "modeCountryCapital" },
       { id: "country-currency", key: "modeCountryCurrency" },
       { id: "capital-country", key: "modeCapitalCountry" },
+      { id: "currency-country", key: "modeCurrencyCountry" },
+      { id: "country-continent", key: "modeCountryContinent" },
       { id: "mixed", key: "modeMixed" }
     ];
 
@@ -512,6 +522,26 @@
         };
       }
 
+      if (mode === "currency-country") {
+        return {
+          mode,
+          promptKey: "promptCurrencyToCountry",
+          ask: item.currency,
+          answer: item.country,
+          optionPool: DATA.map((x) => x.country)
+        };
+      }
+
+      if (mode === "country-continent") {
+        return {
+          mode,
+          promptKey: "promptCountryToContinent",
+          ask: item.country,
+          answer: item.continent,
+          optionPool: DATA.map((x) => x.continent)
+        };
+      }
+
       return {
         mode: "capital-country",
         promptKey: "promptCapitalToCountry",
@@ -525,7 +555,7 @@
       const picked = sample(DATA, QUIZ_SIZE);
       return picked.map((item) => {
         const effectiveMode = state.mode === "mixed"
-          ? sample(["country-capital", "country-currency", "capital-country"], 1)[0]
+          ? sample(["country-capital", "country-currency", "capital-country", "currency-country", "country-continent"], 1)[0]
           : state.mode;
 
         const base = buildQuestionForMode(item, effectiveMode);
@@ -545,6 +575,8 @@
         "country-capital": t("modeCountryCapital"),
         "country-currency": t("modeCountryCurrency"),
         "capital-country": t("modeCapitalCountry"),
+        "currency-country": t("modeCurrencyCountry"),
+        "country-continent": t("modeCountryContinent"),
         mixed: t("modeMixed")
       };
       return map[modeId];
