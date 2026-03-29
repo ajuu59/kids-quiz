@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kids Quiz: Countries</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/oatcss/dist/oat.min.css" />
+  <style>
+    :root {
+      --bg-a: #fff8e6;
+      --bg-b: #dff7ff;
+      --card: #ffffff;
+      --ink: #1f2a44;
+      --primary: #ff7a59;
+      --primary-hover: #ef6947;
+      --good: #1f9d55;
+      --bad: #d64545;
+      --muted: #5e6a84;
+      --border: #d9e1f2;
+      --chip: #eef4ff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Nunito", "Trebuchet MS", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: radial-gradient(circle at top left, var(--bg-a), var(--bg-b));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 740px;
+      background: var(--card);
+      border: 3px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 14px 30px rgba(37, 61, 122, 0.12);
+    }
+
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .title {
+      margin: 0;
+      font-size: clamp(1.4rem, 4.8vw, 2rem);
+      line-height: 1.15;
+    }
+
+    .subtitle {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      gap: 8px;
+      background: #f6f8ff;
+      border: 2px solid var(--border);
+      padding: 6px;
+      border-radius: 999px;
+    }
+
+    .pill {
+      border: none;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 10px 14px;
+      min-width: 64px;
+      cursor: pointer;
+    }
+
+    .pill.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .panel {
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 10px;
+      background: #fcfdff;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modes {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 12px;
+    }
+
+    .mode-btn {
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      background: var(--chip);
+      color: var(--ink);
+      font-size: 1rem;
+      font-weight: 700;
+      min-height: 56px;
+      padding: 12px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .mode-btn.active {
+      border-color: var(--primary);
+      background: #fff2ef;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .chip {
+      background: var(--chip);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 7px 12px;
+    }
+
+    .question-box {
+      margin-top: 14px;
+      padding: 18px;
+      border: 2px dashed #cfdaf6;
+      border-radius: 14px;
+      background: #ffffff;
+      text-align: center;
+    }
+
+    .prompt {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .question {
+      margin: 0;
+      font-size: clamp(1.25rem, 5vw, 1.8rem);
+      line-height: 1.2;
+    }
+
+    .answers {
+      margin-top: 14px;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .answer-btn,
+    .primary-btn,
+    .ghost-btn {
+      min-height: 54px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 800;
+      padding: 12px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .answer-btn {
+      background: #f8faff;
+      border-color: var(--border);
+      color: var(--ink);
+    }
+
+    .answer-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.93;
+    }
+
+    .answer-btn.correct {
+      border-color: var(--good);
+      background: #e7f8ee;
+      color: var(--good);
+    }
+
+    .answer-btn.wrong {
+      border-color: var(--bad);
+      background: #ffecec;
+      color: var(--bad);
+    }
+
+    .primary-btn {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .primary-btn:hover,
+    .primary-btn:focus-visible {
+      background: var(--primary-hover);
+    }
+
+    .ghost-btn {
+      background: #fff;
+      color: var(--ink);
+      border-color: var(--border);
+    }
+
+    .feedback {
+      min-height: 28px;
+      margin-top: 12px;
+      font-weight: 900;
+      font-size: 1.02rem;
+    }
+
+    .feedback.good {
+      color: var(--good);
+    }
+
+    .feedback.bad {
+      color: var(--bad);
+    }
+
+    .actions {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .result {
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    .result h2 {
+      margin: 0 0 8px;
+      font-size: 1.5rem;
+    }
+
+    .score-big {
+      margin: 0;
+      font-size: clamp(2.1rem, 9vw, 3rem);
+      color: var(--primary);
+      font-weight: 900;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    @media (max-width: 640px) {
+      .app {
+        padding: 14px;
+      }
+
+      .modes,
+      .answers {
+        grid-template-columns: 1fr;
+      }
+
+      .answer-btn,
+      .mode-btn,
+      .primary-btn,
+      .ghost-btn,
+      .pill {
+        min-height: 56px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app" aria-live="polite">
+    <div class="topbar">
+      <div>
+        <h1 class="title" id="title"></h1>
+        <p class="subtitle" id="subtitle"></p>
+      </div>
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button class="pill active" id="lang-en" data-lang="en" type="button">EN</button>
+        <button class="pill" id="lang-de" data-lang="de" type="button">DE</button>
+      </div>
+    </div>
+
+    <section class="panel" id="setup-panel">
+      <div class="row">
+        <strong id="chooseModeLabel"></strong>
+      </div>
+      <div class="modes" id="modeButtons"></div>
+      <div class="actions">
+        <button class="primary-btn" id="startBtn" type="button"></button>
+      </div>
+    </section>
+
+    <section class="panel hide" id="quiz-panel">
+      <div class="meta">
+        <div class="chip" id="scoreText"></div>
+        <div class="chip" id="questionCountText"></div>
+        <div class="chip" id="modeText"></div>
+      </div>
+
+      <div class="question-box">
+        <p class="prompt" id="prompt"></p>
+        <h2 class="question" id="question"></h2>
+      </div>
+
+      <div class="answers" id="answers"></div>
+      <div class="feedback" id="feedback"></div>
+
+      <div class="actions">
+        <button class="primary-btn hide" id="nextBtn" type="button"></button>
+      </div>
+    </section>
+
+    <section class="panel hide" id="result-panel">
+      <div class="result">
+        <h2 id="resultTitle"></h2>
+        <p class="score-big" id="finalScore"></p>
+        <p id="resultMessage"></p>
+      </div>
+      <div class="actions">
+        <button class="primary-btn" id="playAgainBtn" type="button"></button>
+        <button class="ghost-btn" id="backToModesBtn" type="button"></button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const QUIZ_SIZE = 10;
+
+    const DATA = [
+      { country: "Germany", capital: "Berlin", currency: "Euro" },
+      { country: "France", capital: "Paris", currency: "Euro" },
+      { country: "Spain", capital: "Madrid", currency: "Euro" },
+      { country: "Italy", capital: "Rome", currency: "Euro" },
+      { country: "Portugal", capital: "Lisbon", currency: "Euro" },
+      { country: "Japan", capital: "Tokyo", currency: "Yen" },
+      { country: "China", capital: "Beijing", currency: "Yuan" },
+      { country: "India", capital: "New Delhi", currency: "Rupee" },
+      { country: "Canada", capital: "Ottawa", currency: "Canadian Dollar" },
+      { country: "United States", capital: "Washington, D.C.", currency: "US Dollar" },
+      { country: "Brazil", capital: "Brasilia", currency: "Real" },
+      { country: "Mexico", capital: "Mexico City", currency: "Mexican Peso" },
+      { country: "United Kingdom", capital: "London", currency: "Pound Sterling" },
+      { country: "Sweden", capital: "Stockholm", currency: "Swedish Krona" },
+      { country: "Norway", capital: "Oslo", currency: "Norwegian Krone" },
+      { country: "Poland", capital: "Warsaw", currency: "Zloty" },
+      { country: "Switzerland", capital: "Bern", currency: "Swiss Franc" },
+      { country: "Australia", capital: "Canberra", currency: "Australian Dollar" },
+      { country: "South Korea", capital: "Seoul", currency: "Won" },
+      { country: "South Africa", capital: "Pretoria", currency: "Rand" }
+    ];
+
+    const I18N = {
+      en: {
+        title: "World Quiz for Kids",
+        subtitle: "Learn countries, capitals, and currencies",
+        chooseMode: "Choose a quiz mode",
+        start: "Start Quiz",
+        next: "Next Question",
+        playAgain: "Play Again",
+        backToModes: "Back to Modes",
+        score: "Score",
+        questionCount: "Question",
+        promptCountryToCapital: "What is the capital of this country?",
+        promptCountryToCurrency: "What is the currency of this country?",
+        promptCapitalToCountry: "Which country has this capital?",
+        modeCountryCapital: "Country -> Capital",
+        modeCountryCurrency: "Country -> Currency",
+        modeCapitalCountry: "Capital -> Country",
+        modeMixed: "Mixed",
+        pickAnswer: "Pick one answer",
+        good: "Correct! Great job!",
+        bad: "Not quite. The right answer is:",
+        resultTitle: "Quiz Complete!",
+        resultMessageHigh: "Amazing work! You know a lot!",
+        resultMessageMid: "Nice work! Keep practicing!",
+        resultMessageLow: "Good try! Practice and play again!"
+      },
+      de: {
+        title: "Welt Quiz fuer Kinder",
+        subtitle: "Lerne Laender, Hauptstaedte und Waehrungen",
+        chooseMode: "Waehle einen Quiz Modus",
+        start: "Quiz Starten",
+        next: "Naechste Frage",
+        playAgain: "Nochmal Spielen",
+        backToModes: "Zurueck zu Modi",
+        score: "Punkte",
+        questionCount: "Frage",
+        promptCountryToCapital: "Was ist die Hauptstadt von diesem Land?",
+        promptCountryToCurrency: "Welche Waehrung hat dieses Land?",
+        promptCapitalToCountry: "Welches Land hat diese Hauptstadt?",
+        modeCountryCapital: "Land -> Hauptstadt",
+        modeCountryCurrency: "Land -> Waehrung",
+        modeCapitalCountry: "Hauptstadt -> Land",
+        modeMixed: "Gemischt",
+        pickAnswer: "Waehle eine Antwort",
+        good: "Richtig! Super!",
+        bad: "Fast. Die richtige Antwort ist:",
+        resultTitle: "Quiz Fertig!",
+        resultMessageHigh: "Super gemacht! Du weisst viel!",
+        resultMessageMid: "Gut gemacht! Weiter ueben!",
+        resultMessageLow: "Guter Versuch! Spiel nochmal!"
+      }
+    };
+
+    const MODES = [
+      { id: "country-capital", key: "modeCountryCapital" },
+      { id: "country-currency", key: "modeCountryCurrency" },
+      { id: "capital-country", key: "modeCapitalCountry" },
+      { id: "mixed", key: "modeMixed" }
+    ];
+
+    const state = {
+      lang: "en",
+      mode: "country-capital",
+      score: 0,
+      index: 0,
+      questions: [],
+      answered: false
+    };
+
+    const el = {
+      title: document.getElementById("title"),
+      subtitle: document.getElementById("subtitle"),
+      chooseModeLabel: document.getElementById("chooseModeLabel"),
+      modeButtons: document.getElementById("modeButtons"),
+      startBtn: document.getElementById("startBtn"),
+      quizPanel: document.getElementById("quiz-panel"),
+      setupPanel: document.getElementById("setup-panel"),
+      resultPanel: document.getElementById("result-panel"),
+      scoreText: document.getElementById("scoreText"),
+      questionCountText: document.getElementById("questionCountText"),
+      modeText: document.getElementById("modeText"),
+      prompt: document.getElementById("prompt"),
+      question: document.getElementById("question"),
+      answers: document.getElementById("answers"),
+      feedback: document.getElementById("feedback"),
+      nextBtn: document.getElementById("nextBtn"),
+      resultTitle: document.getElementById("resultTitle"),
+      finalScore: document.getElementById("finalScore"),
+      resultMessage: document.getElementById("resultMessage"),
+      playAgainBtn: document.getElementById("playAgainBtn"),
+      backToModesBtn: document.getElementById("backToModesBtn"),
+      langEn: document.getElementById("lang-en"),
+      langDe: document.getElementById("lang-de")
+    };
+
+    function t(key) {
+      return I18N[state.lang][key];
+    }
+
+    function shuffle(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = copy[i];
+        copy[i] = copy[j];
+        copy[j] = temp;
+      }
+      return copy;
+    }
+
+    function sample(array, count) {
+      return shuffle(array).slice(0, Math.min(count, array.length));
+    }
+
+    function buildQuestionForMode(item, mode) {
+      if (mode === "country-capital") {
+        return {
+          mode,
+          promptKey: "promptCountryToCapital",
+          ask: item.country,
+          answer: item.capital,
+          optionPool: DATA.map((x) => x.capital)
+        };
+      }
+
+      if (mode === "country-currency") {
+        return {
+          mode,
+          promptKey: "promptCountryToCurrency",
+          ask: item.country,
+          answer: item.currency,
+          optionPool: DATA.map((x) => x.currency)
+        };
+      }
+
+      return {
+        mode: "capital-country",
+        promptKey: "promptCapitalToCountry",
+        ask: item.capital,
+        answer: item.country,
+        optionPool: DATA.map((x) => x.country)
+      };
+    }
+
+    function buildQuestionSet() {
+      const picked = sample(DATA, QUIZ_SIZE);
+      return picked.map((item) => {
+        const effectiveMode = state.mode === "mixed"
+          ? sample(["country-capital", "country-currency", "capital-country"], 1)[0]
+          : state.mode;
+
+        const base = buildQuestionForMode(item, effectiveMode);
+        const uniquePool = [...new Set(base.optionPool.filter((opt) => opt !== base.answer))];
+        const distractors = sample(uniquePool, 3);
+        const options = shuffle([base.answer, ...distractors]);
+
+        return {
+          ...base,
+          options
+        };
+      });
+    }
+
+    function getModeLabel(modeId) {
+      const map = {
+        "country-capital": t("modeCountryCapital"),
+        "country-currency": t("modeCountryCurrency"),
+        "capital-country": t("modeCapitalCountry"),
+        mixed: t("modeMixed")
+      };
+      return map[modeId];
+    }
+
+    function renderModeButtons() {
+      el.modeButtons.innerHTML = "";
+
+      MODES.forEach((mode) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `mode-btn${state.mode === mode.id ? " active" : ""}`;
+        button.textContent = t(mode.key);
+        button.addEventListener("click", () => {
+          state.mode = mode.id;
+          renderModeButtons();
+        });
+        el.modeButtons.appendChild(button);
+      });
+    }
+
+    function applyLanguage() {
+      el.title.textContent = t("title");
+      el.subtitle.textContent = t("subtitle");
+      el.chooseModeLabel.textContent = t("chooseMode");
+      el.startBtn.textContent = t("start");
+      el.nextBtn.textContent = t("next");
+      el.playAgainBtn.textContent = t("playAgain");
+      el.backToModesBtn.textContent = t("backToModes");
+      el.resultTitle.textContent = t("resultTitle");
+
+      el.langEn.classList.toggle("active", state.lang === "en");
+      el.langDe.classList.toggle("active", state.lang === "de");
+
+      renderModeButtons();
+      if (!el.quizPanel.classList.contains("hide")) {
+        updateLiveQuizText();
+      }
+      if (!el.resultPanel.classList.contains("hide")) {
+        renderResult();
+      }
+    }
+
+    function updateLiveQuizText() {
+      const current = state.questions[state.index];
+      if (!current) return;
+
+      el.scoreText.textContent = `${t("score")}: ${state.score}`;
+      el.questionCountText.textContent = `${t("questionCount")}: ${state.index + 1}/${state.questions.length}`;
+      el.modeText.textContent = getModeLabel(state.mode);
+      el.prompt.textContent = t(current.promptKey);
+
+      const allButtons = Array.from(el.answers.querySelectorAll("button"));
+      allButtons.forEach((btn) => {
+        btn.setAttribute("aria-label", `${t("pickAnswer")}: ${btn.textContent}`);
+      });
+    }
+
+    function showPanel(name) {
+      el.setupPanel.classList.toggle("hide", name !== "setup");
+      el.quizPanel.classList.toggle("hide", name !== "quiz");
+      el.resultPanel.classList.toggle("hide", name !== "result");
+    }
+
+    function startQuiz() {
+      state.score = 0;
+      state.index = 0;
+      state.answered = false;
+      state.questions = buildQuestionSet();
+      showPanel("quiz");
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const current = state.questions[state.index];
+      if (!current) {
+        showResult();
+        return;
+      }
+
+      state.answered = false;
+      el.feedback.className = "feedback";
+      el.feedback.textContent = "";
+      el.nextBtn.classList.add("hide");
+
+      el.scoreText.textContent = `${t("score")}: ${state.score}`;
+      el.questionCountText.textContent = `${t("questionCount")}: ${state.index + 1}/${state.questions.length}`;
+      el.modeText.textContent = getModeLabel(state.mode);
+
+      el.prompt.textContent = t(current.promptKey);
+      el.question.textContent = current.ask;
+      el.answers.innerHTML = "";
+
+      current.options.forEach((option) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "answer-btn";
+        button.textContent = option;
+        button.setAttribute("aria-label", `${t("pickAnswer")}: ${option}`);
+        button.addEventListener("click", () => onAnswer(option, button));
+        el.answers.appendChild(button);
+      });
+    }
+
+    function onAnswer(selected, selectedBtn) {
+      if (state.answered) {
+        return;
+      }
+
+      state.answered = true;
+      const current = state.questions[state.index];
+      const isCorrect = selected === current.answer;
+
+      const allButtons = Array.from(el.answers.querySelectorAll("button"));
+      allButtons.forEach((btn) => {
+        btn.disabled = true;
+        if (btn.textContent === current.answer) {
+          btn.classList.add("correct");
+        }
+      });
+
+      if (isCorrect) {
+        state.score += 1;
+        selectedBtn.classList.add("correct");
+        el.feedback.className = "feedback good";
+        el.feedback.textContent = t("good");
+      } else {
+        selectedBtn.classList.add("wrong");
+        el.feedback.className = "feedback bad";
+        el.feedback.textContent = `${t("bad")} ${current.answer}`;
+      }
+
+      el.scoreText.textContent = `${t("score")}: ${state.score}`;
+      el.nextBtn.classList.remove("hide");
+    }
+
+    function nextQuestion() {
+      state.index += 1;
+      if (state.index >= state.questions.length) {
+        showResult();
+        return;
+      }
+      renderQuestion();
+    }
+
+    function resultLine() {
+      const ratio = state.score / state.questions.length;
+      if (ratio >= 0.8) return t("resultMessageHigh");
+      if (ratio >= 0.5) return t("resultMessageMid");
+      return t("resultMessageLow");
+    }
+
+    function renderResult() {
+      el.finalScore.textContent = `${state.score} / ${state.questions.length}`;
+      el.resultMessage.textContent = resultLine();
+    }
+
+    function showResult() {
+      showPanel("result");
+      renderResult();
+    }
+
+    function bindEvents() {
+      el.startBtn.addEventListener("click", startQuiz);
+      el.nextBtn.addEventListener("click", nextQuestion);
+      el.playAgainBtn.addEventListener("click", startQuiz);
+      el.backToModesBtn.addEventListener("click", () => showPanel("setup"));
+
+      [el.langEn, el.langDe].forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.lang = btn.dataset.lang;
+          applyLanguage();
+        });
+      });
+    }
+
+    bindEvents();
+    applyLanguage();
+  </script>
+</body>
+</html>
