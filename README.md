@@ -15,6 +15,7 @@ The app is beginner-friendly, mobile-friendly, and runs directly in the browser.
   - Capital -> Country
   - Currency -> Country
   - Country -> Continent
+  - FIFA Football Facts
   - Mixed mode
 - Score tracking
 - Next question flow

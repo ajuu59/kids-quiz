@@ -380,7 +380,7 @@
     const I18N = {
       en: {
         title: "World Quiz for Kids",
-        subtitle: "Learn countries, capitals, currencies, and continents",
+        subtitle: "Learn world facts, capitals, currencies, continents, and FIFA trivia",
         chooseMode: "Choose a quiz mode",
         start: "Start Quiz",
         next: "Next Question",
@@ -393,11 +393,13 @@
         promptCapitalToCountry: "Which country has this capital?",
         promptCurrencyToCountry: "Which country uses this currency?",
         promptCountryToContinent: "Which continent is this country in?",
+        promptFifaFact: "FIFA football fact quiz",
         modeCountryCapital: "Country -> Capital",
         modeCountryCurrency: "Country -> Currency",
         modeCapitalCountry: "Capital -> Country",
         modeCurrencyCountry: "Currency -> Country",
         modeCountryContinent: "Country -> Continent",
+        modeFifaFacts: "FIFA Football Facts",
         modeMixed: "Mixed",
         pickAnswer: "Pick one answer",
         good: "Correct! Great job!",
@@ -409,7 +411,7 @@
       },
       de: {
         title: "Welt Quiz fuer Kinder",
-        subtitle: "Lerne Laender, Hauptstaedte, Waehrungen und Kontinente",
+        subtitle: "Lerne Weltwissen, Hauptstaedte, Waehrungen, Kontinente und FIFA Trivia",
         chooseMode: "Waehle einen Quiz Modus",
         start: "Quiz Starten",
         next: "Naechste Frage",
@@ -422,11 +424,13 @@
         promptCapitalToCountry: "Welches Land hat diese Hauptstadt?",
         promptCurrencyToCountry: "Welches Land nutzt diese Waehrung?",
         promptCountryToContinent: "Auf welchem Kontinent liegt dieses Land?",
+        promptFifaFact: "FIFA Fussball Fakten Quiz",
         modeCountryCapital: "Land -> Hauptstadt",
         modeCountryCurrency: "Land -> Waehrung",
         modeCapitalCountry: "Hauptstadt -> Land",
         modeCurrencyCountry: "Waehrung -> Land",
         modeCountryContinent: "Land -> Kontinent",
+        modeFifaFacts: "FIFA Fussball Fakten",
         modeMixed: "Gemischt",
         pickAnswer: "Waehle eine Antwort",
         good: "Richtig! Super!",
@@ -438,12 +442,196 @@
       }
     };
 
+    const FIFA_FACTS = [
+      {
+        mode: "fifa-facts",
+        promptKey: "promptFifaFact",
+        ask: {
+          en: "Which country won the FIFA World Cup in 2022?",
+          de: "Welches Land gewann die FIFA Weltmeisterschaft 2022?"
+        },
+        answer: "argentina",
+        options: [
+          { id: "argentina", en: "Argentina", de: "Argentinien" },
+          { id: "france", en: "France", de: "Frankreich" },
+          { id: "brazil", en: "Brazil", de: "Brasilien" },
+          { id: "germany", en: "Germany", de: "Deutschland" }
+        ]
+      },
+      {
+        mode: "fifa-facts",
+        promptKey: "promptFifaFact",
+        ask: {
+          en: "How many players are on the field for one team in football?",
+          de: "Wie viele Spieler sind fuer ein Team im Fussball auf dem Feld?"
+        },
+        answer: "11",
+        options: [
+          { id: "11", en: "11", de: "11" },
+          { id: "9", en: "9", de: "9" },
+          { id: "10", en: "10", de: "10" },
+          { id: "12", en: "12", de: "12" }
+        ]
+      },
+      {
+        mode: "fifa-facts",
+        promptKey: "promptFifaFact",
+        ask: {
+          en: "What does FIFA stand for?",
+          de: "Wofuer steht FIFA?"
+        },
+        answer: "federation",
+        options: [
+          { id: "federation", en: "International Federation of Association Football", de: "Internationaler Verband des Association Football" },
+          { id: "friends", en: "Friends in Football Association", de: "Freunde im Fussball Verband" },
+          { id: "final", en: "Final International Football Awards", de: "Finale Internationale Fussball Preise" },
+          { id: "fifa", en: "Federation in Football Activities", de: "Verband fuer Fussball Aktivitaeten" }
+        ]
+      },
+      {
+        mode: "fifa-facts",
+        promptKey: "promptFifaFact",
+        ask: {
+          en: "How often is the FIFA World Cup held?",
+          de: "Wie oft findet die FIFA Weltmeisterschaft statt?"
+        },
+        answer: "4years",
+        options: [
+          { id: "4years", en: "Every 4 years", de: "Alle 4 Jahre" },
+          { id: "2years", en: "Every 2 years", de: "Alle 2 Jahre" },
+          { id: "yearly", en: "Every year", de: "Jedes Jahr" },
+          { id: "5years", en: "Every 5 years", de: "Alle 5 Jahre" }
+        ]
+      },
+      {
+        mode: "fifa-facts",
+        promptKey: "promptFifaFact",
+        ask: {
+          en: "Which color card means a player must leave the game?",
+          de: "Welche Kartenfarbe bedeutet, dass ein Spieler vom Platz muss?"
+        },
+        answer: "red",
+        options: [
+          { id: "red", en: "Red card", de: "Rote Karte" },
+          { id: "yellow", en: "Yellow card", de: "Gelbe Karte" },
+          { id: "blue", en: "Blue card", de: "Blaue Karte" },
+          { id: "green", en: "Green card", de: "Gruene Karte" }
+        ]
+      },
+      {
+        mode: "fifa-facts",
+        promptKey: "promptFifaFact",
+        ask: {
+          en: "In what year was the first FIFA World Cup?",
+          de: "In welchem Jahr war die erste FIFA Weltmeisterschaft?"
+        },
+        answer: "1930",
+        options: [
+          { id: "1930", en: "1930", de: "1930" },
+          { id: "1942", en: "1942", de: "1942" },
+          { id: "1920", en: "1920", de: "1920" },
+          { id: "1950", en: "1950", de: "1950" }
+        ]
+      },
+      {
+        mode: "fifa-facts",
+        promptKey: "promptFifaFact",
+        ask: {
+          en: "How long is a regular football match?",
+          de: "Wie lange dauert ein normales Fussballspiel?"
+        },
+        answer: "90",
+        options: [
+          { id: "90", en: "90 minutes", de: "90 Minuten" },
+          { id: "60", en: "60 minutes", de: "60 Minuten" },
+          { id: "80", en: "80 minutes", de: "80 Minuten" },
+          { id: "100", en: "100 minutes", de: "100 Minuten" }
+        ]
+      },
+      {
+        mode: "fifa-facts",
+        promptKey: "promptFifaFact",
+        ask: {
+          en: "What starts the game at the center circle?",
+          de: "Was startet das Spiel im Mittelkreis?"
+        },
+        answer: "kickoff",
+        options: [
+          { id: "kickoff", en: "Kick-off", de: "Anstoss" },
+          { id: "corner", en: "Corner kick", de: "Eckball" },
+          { id: "throwin", en: "Throw-in", de: "Einwurf" },
+          { id: "penalty", en: "Penalty", de: "Elfmeter" }
+        ]
+      },
+      {
+        mode: "fifa-facts",
+        promptKey: "promptFifaFact",
+        ask: {
+          en: "Which tournament is for national teams?",
+          de: "Welches Turnier ist fuer Nationalteams?"
+        },
+        answer: "worldcup",
+        options: [
+          { id: "worldcup", en: "FIFA World Cup", de: "FIFA Weltmeisterschaft" },
+          { id: "league", en: "Local school league", de: "Lokale Schulliga" },
+          { id: "cup", en: "Neighborhood cup", de: "Nachbarschafts-Cup" },
+          { id: "friendly", en: "Friendly day", de: "Freundschaftstag" }
+        ]
+      },
+      {
+        mode: "fifa-facts",
+        promptKey: "promptFifaFact",
+        ask: {
+          en: "How many points does a team get for a win?",
+          de: "Wie viele Punkte bekommt ein Team fuer einen Sieg?"
+        },
+        answer: "3",
+        options: [
+          { id: "3", en: "3 points", de: "3 Punkte" },
+          { id: "1", en: "1 point", de: "1 Punkt" },
+          { id: "2", en: "2 points", de: "2 Punkte" },
+          { id: "4", en: "4 points", de: "4 Punkte" }
+        ]
+      },
+      {
+        mode: "fifa-facts",
+        promptKey: "promptFifaFact",
+        ask: {
+          en: "How many points does each team get after a draw?",
+          de: "Wie viele Punkte bekommt jedes Team nach einem Unentschieden?"
+        },
+        answer: "1",
+        options: [
+          { id: "1", en: "1 point", de: "1 Punkt" },
+          { id: "0", en: "0 points", de: "0 Punkte" },
+          { id: "2", en: "2 points", de: "2 Punkte" },
+          { id: "3", en: "3 points", de: "3 Punkte" }
+        ]
+      },
+      {
+        mode: "fifa-facts",
+        promptKey: "promptFifaFact",
+        ask: {
+          en: "Which body part cannot be used by most players?",
+          de: "Welches Koerperteil duerfen die meisten Spieler nicht benutzen?"
+        },
+        answer: "hands",
+        options: [
+          { id: "hands", en: "Hands and arms", de: "Haende und Arme" },
+          { id: "head", en: "Head", de: "Kopf" },
+          { id: "feet", en: "Feet", de: "Fuesse" },
+          { id: "chest", en: "Chest", de: "Brust" }
+        ]
+      }
+    ];
+
     const MODES = [
       { id: "country-capital", key: "modeCountryCapital" },
       { id: "country-currency", key: "modeCountryCurrency" },
       { id: "capital-country", key: "modeCapitalCountry" },
       { id: "currency-country", key: "modeCurrencyCountry" },
       { id: "country-continent", key: "modeCountryContinent" },
+      { id: "fifa-facts", key: "modeFifaFacts" },
       { id: "mixed", key: "modeMixed" }
     ];
 
@@ -552,6 +740,13 @@
     }
 
     function buildQuestionSet() {
+      if (state.mode === "fifa-facts") {
+        return sample(FIFA_FACTS, QUIZ_SIZE).map((fact) => ({
+          ...fact,
+          options: shuffle([...fact.options])
+        }));
+      }
+
       const picked = sample(DATA, QUIZ_SIZE);
       return picked.map((item) => {
         const effectiveMode = state.mode === "mixed"
@@ -577,9 +772,40 @@
         "capital-country": t("modeCapitalCountry"),
         "currency-country": t("modeCurrencyCountry"),
         "country-continent": t("modeCountryContinent"),
+        "fifa-facts": t("modeFifaFacts"),
         mixed: t("modeMixed")
       };
       return map[modeId];
+    }
+
+    function getAskText(questionObj) {
+      if (typeof questionObj.ask === "string") {
+        return questionObj.ask;
+      }
+      return questionObj.ask[state.lang];
+    }
+
+    function getOptionLabel(option) {
+      if (typeof option === "string") {
+        return option;
+      }
+      return option[state.lang];
+    }
+
+    function getOptionValue(option) {
+      if (typeof option === "string") {
+        return option;
+      }
+      return option.id;
+    }
+
+    function getAnswerLabel(questionObj) {
+      if (typeof questionObj.answer === "string" && !Array.isArray(questionObj.options)) {
+        return questionObj.answer;
+      }
+
+      const found = questionObj.options.find((option) => getOptionValue(option) === questionObj.answer);
+      return found ? getOptionLabel(found) : String(questionObj.answer);
     }
 
     function renderModeButtons() {
@@ -628,11 +854,26 @@
       el.questionCountText.textContent = `${t("questionCount")}: ${state.index + 1}/${state.questions.length}`;
       el.modeText.textContent = getModeLabel(state.mode);
       el.prompt.textContent = t(current.promptKey);
+      el.question.textContent = getAskText(current);
 
       const allButtons = Array.from(el.answers.querySelectorAll("button"));
-      allButtons.forEach((btn) => {
-        btn.setAttribute("aria-label", `${t("pickAnswer")}: ${btn.textContent}`);
+      allButtons.forEach((btn, index) => {
+        const option = current.options[index];
+        const label = getOptionLabel(option);
+        btn.textContent = label;
+        btn.dataset.value = getOptionValue(option);
+        btn.setAttribute("aria-label", `${t("pickAnswer")}: ${label}`);
       });
+
+      if (state.answered) {
+        const answerLabel = getAnswerLabel(current);
+        if (el.feedback.classList.contains("bad")) {
+          el.feedback.textContent = `${t("bad")} ${answerLabel}`;
+        }
+        if (el.feedback.classList.contains("good")) {
+          el.feedback.textContent = t("good");
+        }
+      }
     }
 
     function showPanel(name) {
@@ -667,16 +908,19 @@
       el.modeText.textContent = getModeLabel(state.mode);
 
       el.prompt.textContent = t(current.promptKey);
-      el.question.textContent = current.ask;
+      el.question.textContent = getAskText(current);
       el.answers.innerHTML = "";
 
       current.options.forEach((option) => {
+        const value = getOptionValue(option);
+        const label = getOptionLabel(option);
         const button = document.createElement("button");
         button.type = "button";
         button.className = "answer-btn";
-        button.textContent = option;
-        button.setAttribute("aria-label", `${t("pickAnswer")}: ${option}`);
-        button.addEventListener("click", () => onAnswer(option, button));
+        button.dataset.value = value;
+        button.textContent = label;
+        button.setAttribute("aria-label", `${t("pickAnswer")}: ${label}`);
+        button.addEventListener("click", () => onAnswer(value, button));
         el.answers.appendChild(button);
       });
     }
@@ -693,7 +937,7 @@
       const allButtons = Array.from(el.answers.querySelectorAll("button"));
       allButtons.forEach((btn) => {
         btn.disabled = true;
-        if (btn.textContent === current.answer) {
+        if (btn.dataset.value === String(current.answer)) {
           btn.classList.add("correct");
         }
       });
@@ -706,7 +950,7 @@
       } else {
         selectedBtn.classList.add("wrong");
         el.feedback.className = "feedback bad";
-        el.feedback.textContent = `${t("bad")} ${current.answer}`;
+        el.feedback.textContent = `${t("bad")} ${getAnswerLabel(current)}`;
       }
 
       el.scoreText.textContent = `${t("score")}: ${state.score}`;
