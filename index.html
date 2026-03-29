@@ -380,7 +380,7 @@
     const I18N = {
       en: {
         title: "World Quiz for Kids",
-        subtitle: "Learn world facts, capitals, currencies, continents, and FIFA trivia",
+        subtitle: "Learn world facts, capitals, currencies, continents, FIFA trivia, and math length",
         chooseMode: "Choose a quiz mode",
         start: "Start Quiz",
         next: "Next Question",
@@ -394,12 +394,14 @@
         promptCurrencyToCountry: "Which country uses this currency?",
         promptCountryToContinent: "Which continent is this country in?",
         promptFifaFact: "FIFA football fact quiz",
+        promptMathLength: "Grade 4 math: length",
         modeCountryCapital: "Country -> Capital",
         modeCountryCurrency: "Country -> Currency",
         modeCapitalCountry: "Capital -> Country",
         modeCurrencyCountry: "Currency -> Country",
         modeCountryContinent: "Country -> Continent",
         modeFifaFacts: "FIFA Football Facts",
+        modeMathLength: "Math Grade 4: Length",
         modeMixed: "Mixed",
         pickAnswer: "Pick one answer",
         good: "Correct! Great job!",
@@ -411,7 +413,7 @@
       },
       de: {
         title: "Welt Quiz fuer Kinder",
-        subtitle: "Lerne Weltwissen, Hauptstaedte, Waehrungen, Kontinente und FIFA Trivia",
+        subtitle: "Lerne Weltwissen, Hauptstaedte, Waehrungen, Kontinente, FIFA Trivia und Mathe Laengen",
         chooseMode: "Waehle einen Quiz Modus",
         start: "Quiz Starten",
         next: "Naechste Frage",
@@ -425,12 +427,14 @@
         promptCurrencyToCountry: "Welches Land nutzt diese Waehrung?",
         promptCountryToContinent: "Auf welchem Kontinent liegt dieses Land?",
         promptFifaFact: "FIFA Fussball Fakten Quiz",
+        promptMathLength: "Mathe Klasse 4: Laengen",
         modeCountryCapital: "Land -> Hauptstadt",
         modeCountryCurrency: "Land -> Waehrung",
         modeCapitalCountry: "Hauptstadt -> Land",
         modeCurrencyCountry: "Waehrung -> Land",
         modeCountryContinent: "Land -> Kontinent",
         modeFifaFacts: "FIFA Fussball Fakten",
+        modeMathLength: "Mathe Klasse 4: Laengen",
         modeMixed: "Gemischt",
         pickAnswer: "Waehle eine Antwort",
         good: "Richtig! Super!",
@@ -625,6 +629,153 @@
       }
     ];
 
+    const MATH_LENGTH_FACTS = [
+      {
+        mode: "math-length-grade4",
+        promptKey: "promptMathLength",
+        ask: { en: "How many centimeters are in 2 meters?", de: "Wie viele Zentimeter sind in 2 Metern?" },
+        answer: "200cm",
+        options: [
+          { id: "200cm", en: "200 cm", de: "200 cm" },
+          { id: "20cm", en: "20 cm", de: "20 cm" },
+          { id: "2000cm", en: "2000 cm", de: "2000 cm" },
+          { id: "2cm", en: "2 cm", de: "2 cm" }
+        ]
+      },
+      {
+        mode: "math-length-grade4",
+        promptKey: "promptMathLength",
+        ask: { en: "How many millimeters are in 5 centimeters?", de: "Wie viele Millimeter sind in 5 Zentimetern?" },
+        answer: "50mm",
+        options: [
+          { id: "50mm", en: "50 mm", de: "50 mm" },
+          { id: "500mm", en: "500 mm", de: "500 mm" },
+          { id: "5mm", en: "5 mm", de: "5 mm" },
+          { id: "15mm", en: "15 mm", de: "15 mm" }
+        ]
+      },
+      {
+        mode: "math-length-grade4",
+        promptKey: "promptMathLength",
+        ask: { en: "How many meters are in 1 kilometer?", de: "Wie viele Meter sind in 1 Kilometer?" },
+        answer: "1000m",
+        options: [
+          { id: "1000m", en: "1000 m", de: "1000 m" },
+          { id: "100m", en: "100 m", de: "100 m" },
+          { id: "10m", en: "10 m", de: "10 m" },
+          { id: "10000m", en: "10000 m", de: "10000 m" }
+        ]
+      },
+      {
+        mode: "math-length-grade4",
+        promptKey: "promptMathLength",
+        ask: { en: "Which is longer?", de: "Was ist laenger?" },
+        answer: "3m",
+        options: [
+          { id: "3m", en: "3 m", de: "3 m" },
+          { id: "250cm", en: "250 cm", de: "250 cm" },
+          { id: "299cm", en: "299 cm", de: "299 cm" },
+          { id: "30dm", en: "30 dm", de: "30 dm" }
+        ]
+      },
+      {
+        mode: "math-length-grade4",
+        promptKey: "promptMathLength",
+        ask: { en: "7 m = ? cm", de: "7 m = ? cm" },
+        answer: "700cm",
+        options: [
+          { id: "700cm", en: "700 cm", de: "700 cm" },
+          { id: "70cm", en: "70 cm", de: "70 cm" },
+          { id: "7000cm", en: "7000 cm", de: "7000 cm" },
+          { id: "17cm", en: "17 cm", de: "17 cm" }
+        ]
+      },
+      {
+        mode: "math-length-grade4",
+        promptKey: "promptMathLength",
+        ask: { en: "3000 m = ? km", de: "3000 m = ? km" },
+        answer: "3km",
+        options: [
+          { id: "3km", en: "3 km", de: "3 km" },
+          { id: "30km", en: "30 km", de: "30 km" },
+          { id: "0.3km", en: "0.3 km", de: "0.3 km" },
+          { id: "300km", en: "300 km", de: "300 km" }
+        ]
+      },
+      {
+        mode: "math-length-grade4",
+        promptKey: "promptMathLength",
+        ask: { en: "45 cm + 55 cm = ?", de: "45 cm + 55 cm = ?" },
+        answer: "100cm",
+        options: [
+          { id: "100cm", en: "100 cm", de: "100 cm" },
+          { id: "90cm", en: "90 cm", de: "90 cm" },
+          { id: "110cm", en: "110 cm", de: "110 cm" },
+          { id: "105cm", en: "105 cm", de: "105 cm" }
+        ]
+      },
+      {
+        mode: "math-length-grade4",
+        promptKey: "promptMathLength",
+        ask: { en: "Which is the shortest?", de: "Was ist am kuerzesten?" },
+        answer: "80cm",
+        options: [
+          { id: "80cm", en: "80 cm", de: "80 cm" },
+          { id: "1m", en: "1 m", de: "1 m" },
+          { id: "900mm", en: "900 mm", de: "900 mm" },
+          { id: "95cm", en: "95 cm", de: "95 cm" }
+        ]
+      },
+      {
+        mode: "math-length-grade4",
+        promptKey: "promptMathLength",
+        ask: { en: "How many millimeters are in 1 meter?", de: "Wie viele Millimeter sind in 1 Meter?" },
+        answer: "1000mm",
+        options: [
+          { id: "1000mm", en: "1000 mm", de: "1000 mm" },
+          { id: "100mm", en: "100 mm", de: "100 mm" },
+          { id: "10mm", en: "10 mm", de: "10 mm" },
+          { id: "10000mm", en: "10000 mm", de: "10000 mm" }
+        ]
+      },
+      {
+        mode: "math-length-grade4",
+        promptKey: "promptMathLength",
+        ask: { en: "2 km = ? m", de: "2 km = ? m" },
+        answer: "2000m",
+        options: [
+          { id: "2000m", en: "2000 m", de: "2000 m" },
+          { id: "200m", en: "200 m", de: "200 m" },
+          { id: "20000m", en: "20000 m", de: "20000 m" },
+          { id: "20m", en: "20 m", de: "20 m" }
+        ]
+      },
+      {
+        mode: "math-length-grade4",
+        promptKey: "promptMathLength",
+        ask: { en: "Which is equal to 150 cm?", de: "Was ist gleich 150 cm?" },
+        answer: "1.5m",
+        options: [
+          { id: "1.5m", en: "1.5 m", de: "1.5 m" },
+          { id: "15m", en: "15 m", de: "15 m" },
+          { id: "0.15m", en: "0.15 m", de: "0.15 m" },
+          { id: "1500m", en: "1500 m", de: "1500 m" }
+        ]
+      },
+      {
+        mode: "math-length-grade4",
+        promptKey: "promptMathLength",
+        ask: { en: "1 m 20 cm = ? cm", de: "1 m 20 cm = ? cm" },
+        answer: "120cm",
+        options: [
+          { id: "120cm", en: "120 cm", de: "120 cm" },
+          { id: "102cm", en: "102 cm", de: "102 cm" },
+          { id: "220cm", en: "220 cm", de: "220 cm" },
+          { id: "12cm", en: "12 cm", de: "12 cm" }
+        ]
+      }
+    ];
+
     const MODES = [
       { id: "country-capital", key: "modeCountryCapital" },
       { id: "country-currency", key: "modeCountryCurrency" },
@@ -632,6 +783,7 @@
       { id: "currency-country", key: "modeCurrencyCountry" },
       { id: "country-continent", key: "modeCountryContinent" },
       { id: "fifa-facts", key: "modeFifaFacts" },
+      { id: "math-length-grade4", key: "modeMathLength" },
       { id: "mixed", key: "modeMixed" }
     ];
 
@@ -740,6 +892,13 @@
     }
 
     function buildQuestionSet() {
+      if (state.mode === "math-length-grade4") {
+        return sample(MATH_LENGTH_FACTS, QUIZ_SIZE).map((fact) => ({
+          ...fact,
+          options: shuffle([...fact.options])
+        }));
+      }
+
       if (state.mode === "fifa-facts") {
         return sample(FIFA_FACTS, QUIZ_SIZE).map((fact) => ({
           ...fact,
@@ -773,6 +932,7 @@
         "currency-country": t("modeCurrencyCountry"),
         "country-continent": t("modeCountryContinent"),
         "fifa-facts": t("modeFifaFacts"),
+        "math-length-grade4": t("modeMathLength"),
         mixed: t("modeMixed")
       };
       return map[modeId];

@@ -5,6 +5,7 @@ A simple HTML5 quiz game for kids to learn:
 - capitals
 - currencies
 - continents
+- basic math length conversions (Grade 4)
 
 The app is beginner-friendly, mobile-friendly, and runs directly in the browser.
 
@@ -16,6 +17,7 @@ The app is beginner-friendly, mobile-friendly, and runs directly in the browser.
   - Currency -> Country
   - Country -> Continent
   - FIFA Football Facts
+  - Math Grade 4: Length
   - Mixed mode
 - Score tracking
 - Next question flow
