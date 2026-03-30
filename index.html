@@ -395,6 +395,7 @@
         promptCountryToContinent: "Which continent is this country in?",
         promptFifaFact: "FIFA football fact quiz",
         promptMathLength: "Grade 4 math: length",
+        promptGermanVocab: "German vocabulary (Class 5)",
         modeCountryCapital: "Country -> Capital",
         modeCountryCurrency: "Country -> Currency",
         modeCapitalCountry: "Capital -> Country",
@@ -402,6 +403,7 @@
         modeCountryContinent: "Country -> Continent",
         modeFifaFacts: "FIFA Football Facts",
         modeMathLength: "Math Grade 4: Length",
+        modeGermanVocab: "German Vocabulary: Class 5",
         modeMixed: "Mixed",
         pickAnswer: "Pick one answer",
         good: "Correct! Great job!",
@@ -428,6 +430,7 @@
         promptCountryToContinent: "Auf welchem Kontinent liegt dieses Land?",
         promptFifaFact: "FIFA Fussball Fakten Quiz",
         promptMathLength: "Mathe Klasse 4: Laengen",
+        promptGermanVocab: "Deutscher Wortschatz (Klasse 5)",
         modeCountryCapital: "Land -> Hauptstadt",
         modeCountryCurrency: "Land -> Waehrung",
         modeCapitalCountry: "Hauptstadt -> Land",
@@ -435,6 +438,7 @@
         modeCountryContinent: "Land -> Kontinent",
         modeFifaFacts: "FIFA Fussball Fakten",
         modeMathLength: "Mathe Klasse 4: Laengen",
+        modeGermanVocab: "Deutsch Wortschatz: Klasse 5",
         modeMixed: "Gemischt",
         pickAnswer: "Waehle eine Antwort",
         good: "Richtig! Super!",
@@ -776,6 +780,153 @@
       }
     ];
 
+    const GERMAN_VOCAB_FACTS = [
+      {
+        mode: "german-vocab-grade5",
+        promptKey: "promptGermanVocab",
+        ask: { en: 'What is the English meaning of "die Schule"?', de: 'Was bedeutet "die Schule" auf Englisch?' },
+        answer: "school",
+        options: [
+          { id: "school", en: "school", de: "school" },
+          { id: "library", en: "library", de: "library" },
+          { id: "classroom", en: "classroom", de: "classroom" },
+          { id: "homework", en: "homework", de: "homework" }
+        ]
+      },
+      {
+        mode: "german-vocab-grade5",
+        promptKey: "promptGermanVocab",
+        ask: { en: 'What is the English meaning of "das Heft"?', de: 'Was bedeutet "das Heft" auf Englisch?' },
+        answer: "notebook",
+        options: [
+          { id: "notebook", en: "notebook", de: "notebook" },
+          { id: "pen", en: "pen", de: "pen" },
+          { id: "book", en: "book", de: "book" },
+          { id: "chalk", en: "chalk", de: "chalk" }
+        ]
+      },
+      {
+        mode: "german-vocab-grade5",
+        promptKey: "promptGermanVocab",
+        ask: { en: 'What is the English meaning of "fruehstuecken"?', de: 'Was bedeutet "fruehstuecken" auf Englisch?' },
+        answer: "to have breakfast",
+        options: [
+          { id: "to have breakfast", en: "to have breakfast", de: "to have breakfast" },
+          { id: "to read", en: "to read", de: "to read" },
+          { id: "to write", en: "to write", de: "to write" },
+          { id: "to play", en: "to play", de: "to play" }
+        ]
+      },
+      {
+        mode: "german-vocab-grade5",
+        promptKey: "promptGermanVocab",
+        ask: { en: 'What is the English meaning of "die Freundin"?', de: 'Was bedeutet "die Freundin" auf Englisch?' },
+        answer: "female friend",
+        options: [
+          { id: "female friend", en: "female friend", de: "female friend" },
+          { id: "teacher", en: "teacher", de: "teacher" },
+          { id: "family", en: "family", de: "family" },
+          { id: "student", en: "student", de: "student" }
+        ]
+      },
+      {
+        mode: "german-vocab-grade5",
+        promptKey: "promptGermanVocab",
+        ask: { en: 'What is the English meaning of "der Bruder"?', de: 'Was bedeutet "der Bruder" auf Englisch?' },
+        answer: "brother",
+        options: [
+          { id: "brother", en: "brother", de: "brother" },
+          { id: "sister", en: "sister", de: "sister" },
+          { id: "father", en: "father", de: "father" },
+          { id: "uncle", en: "uncle", de: "uncle" }
+        ]
+      },
+      {
+        mode: "german-vocab-grade5",
+        promptKey: "promptGermanVocab",
+        ask: { en: 'What is the English meaning of "das Wetter"?', de: 'Was bedeutet "das Wetter" auf Englisch?' },
+        answer: "weather",
+        options: [
+          { id: "weather", en: "weather", de: "weather" },
+          { id: "window", en: "window", de: "window" },
+          { id: "winter", en: "winter", de: "winter" },
+          { id: "weekend", en: "weekend", de: "weekend" }
+        ]
+      },
+      {
+        mode: "german-vocab-grade5",
+        promptKey: "promptGermanVocab",
+        ask: { en: 'What is the English meaning of "schwimmen"?', de: 'Was bedeutet "schwimmen" auf Englisch?' },
+        answer: "to swim",
+        options: [
+          { id: "to swim", en: "to swim", de: "to swim" },
+          { id: "to sing", en: "to sing", de: "to sing" },
+          { id: "to jump", en: "to jump", de: "to jump" },
+          { id: "to sleep", en: "to sleep", de: "to sleep" }
+        ]
+      },
+      {
+        mode: "german-vocab-grade5",
+        promptKey: "promptGermanVocab",
+        ask: { en: 'What is the English meaning of "guenstig"?', de: 'Was bedeutet "guenstig" auf Englisch?' },
+        answer: "cheap",
+        options: [
+          { id: "cheap", en: "cheap", de: "cheap" },
+          { id: "expensive", en: "expensive", de: "expensive" },
+          { id: "new", en: "new", de: "new" },
+          { id: "small", en: "small", de: "small" }
+        ]
+      },
+      {
+        mode: "german-vocab-grade5",
+        promptKey: "promptGermanVocab",
+        ask: { en: 'What is the English meaning of "die Hausaufgabe"?', de: 'Was bedeutet "die Hausaufgabe" auf Englisch?' },
+        answer: "homework",
+        options: [
+          { id: "homework", en: "homework", de: "homework" },
+          { id: "holiday", en: "holiday", de: "holiday" },
+          { id: "class test", en: "class test", de: "class test" },
+          { id: "lesson", en: "lesson", de: "lesson" }
+        ]
+      },
+      {
+        mode: "german-vocab-grade5",
+        promptKey: "promptGermanVocab",
+        ask: { en: 'What is the English meaning of "morgen"?', de: 'Was bedeutet "morgen" auf Englisch?' },
+        answer: "tomorrow",
+        options: [
+          { id: "tomorrow", en: "tomorrow", de: "tomorrow" },
+          { id: "morning", en: "morning", de: "morning" },
+          { id: "yesterday", en: "yesterday", de: "yesterday" },
+          { id: "today", en: "today", de: "today" }
+        ]
+      },
+      {
+        mode: "german-vocab-grade5",
+        promptKey: "promptGermanVocab",
+        ask: { en: 'What is the English meaning of "die Ferien"?', de: 'Was bedeutet "die Ferien" auf Englisch?' },
+        answer: "school holidays",
+        options: [
+          { id: "school holidays", en: "school holidays", de: "school holidays" },
+          { id: "weekdays", en: "weekdays", de: "weekdays" },
+          { id: "classroom", en: "classroom", de: "classroom" },
+          { id: "afternoon", en: "afternoon", de: "afternoon" }
+        ]
+      },
+      {
+        mode: "german-vocab-grade5",
+        promptKey: "promptGermanVocab",
+        ask: { en: 'What is the English meaning of "der Lieblingssport"?', de: 'Was bedeutet "der Lieblingssport" auf Englisch?' },
+        answer: "favourite sport",
+        options: [
+          { id: "favourite sport", en: "favourite sport", de: "favourite sport" },
+          { id: "sports hall", en: "sports hall", de: "sports hall" },
+          { id: "sports shoes", en: "sports shoes", de: "sports shoes" },
+          { id: "sports teacher", en: "sports teacher", de: "sports teacher" }
+        ]
+      }
+    ];
+
     const MODES = [
       { id: "country-capital", key: "modeCountryCapital" },
       { id: "country-currency", key: "modeCountryCurrency" },
@@ -784,6 +935,7 @@
       { id: "country-continent", key: "modeCountryContinent" },
       { id: "fifa-facts", key: "modeFifaFacts" },
       { id: "math-length-grade4", key: "modeMathLength" },
+      { id: "german-vocab-grade5", key: "modeGermanVocab" },
       { id: "mixed", key: "modeMixed" }
     ];
 
@@ -906,6 +1058,13 @@
         }));
       }
 
+      if (state.mode === "german-vocab-grade5") {
+        return sample(GERMAN_VOCAB_FACTS, QUIZ_SIZE).map((fact) => ({
+          ...fact,
+          options: shuffle([...fact.options])
+        }));
+      }
+
       const picked = sample(DATA, QUIZ_SIZE);
       return picked.map((item) => {
         const effectiveMode = state.mode === "mixed"
@@ -933,6 +1092,7 @@
         "country-continent": t("modeCountryContinent"),
         "fifa-facts": t("modeFifaFacts"),
         "math-length-grade4": t("modeMathLength"),
+        "german-vocab-grade5": t("modeGermanVocab"),
         mixed: t("modeMixed")
       };
       return map[modeId];
